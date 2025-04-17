@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <button onclick=fun()>click</button>
+    <% if (user != "") { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th> <!-- Assuming you will uncomment and provide appropriate links for action -->
+                </tr>
+            </thead>
+            <tbody>
+                <% user.forEach((userData, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= userData.username %></td>
+                        <td><%= userData.email %></td>
+                        <td><%= userData.password %></td>
+                        <!-- Uncomment and provide appropriate links for action -->
+                        <td>
+                            <a href="/edit/<%= userData._id %>">Update</a>
+                            <a href="/delete/<%= userData._id %>">Delete</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No data available</p>
+    <% } %>
+</body>
+<script>
+    function fun() {
+        fetch("/register")
+        .then((response)=>{
+            window.location.href = "/register";
+        })
+        .catch((err)=>{
+            console.log("some thing is error")
+        })
+    }
+</script>
+</html>
